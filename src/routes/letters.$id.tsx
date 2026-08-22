@@ -64,9 +64,16 @@ function LetterDetail() {
         )}
       </div>
 
-      {activeLetter && (
-        <ChatPanel scope={{ letterId: activeLetter.id }} onClose={() => setActiveLetter(null)} />
-      )}
+      <ChatPanel
+        open={activeLetter !== null}
+        onOpenChange={(next) => {
+          if (!next) setActiveLetter(null);
+        }}
+        title="Ask about this letter"
+        subtitle={activeLetter?.company_name ?? ""}
+        letterId={activeLetter?.id ?? null}
+        kind={letter?.letter_kind ?? "warning"}
+      />
     </main>
   );
 }

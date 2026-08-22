@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as UntitledLettersRouteImport } from './routes/untitled-letters'
 import { Route as WarningLettersRouteImport } from './routes/warning-letters'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as LettersIdRouteImport } from './routes/letters.$id'
 import { Route as ApiLetterFileIdRouteImport } from './routes/api/letter-file.$id'
 import { Route as ApiLetterPdfIdRouteImport } from './routes/api/letter-pdf.$id'
 import { Route as ApiPublicHooksIngestLettersRouteImport } from './routes/api/public/hooks/ingest-letters'
@@ -43,6 +44,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LettersIdRoute = LettersIdRouteImport.update({
+  id: '/letters/$id',
+  path: '/letters/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiLetterFileIdRoute = ApiLetterFileIdRouteImport.update({
   id: '/api/letter-file/$id',
   path: '/api/letter-file/$id',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/untitled-letters': typeof UntitledLettersRoute
   '/warning-letters': typeof WarningLettersRoute
   '/api/chat': typeof ApiChatRoute
+  '/letters/$id': typeof LettersIdRoute
   '/api/letter-file/$id': typeof ApiLetterFileIdRoute
   '/api/letter-pdf/$id': typeof ApiLetterPdfIdRoute
   '/api/public/hooks/ingest-letters': typeof ApiPublicHooksIngestLettersRoute
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/untitled-letters': typeof UntitledLettersRoute
   '/warning-letters': typeof WarningLettersRoute
   '/api/chat': typeof ApiChatRoute
+  '/letters/$id': typeof LettersIdRoute
   '/api/letter-file/$id': typeof ApiLetterFileIdRoute
   '/api/letter-pdf/$id': typeof ApiLetterPdfIdRoute
   '/api/public/hooks/ingest-letters': typeof ApiPublicHooksIngestLettersRoute
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/untitled-letters': typeof UntitledLettersRoute
   '/warning-letters': typeof WarningLettersRoute
   '/api/chat': typeof ApiChatRoute
+  '/letters/$id': typeof LettersIdRoute
   '/api/letter-file/$id': typeof ApiLetterFileIdRoute
   '/api/letter-pdf/$id': typeof ApiLetterPdfIdRoute
   '/api/public/hooks/ingest-letters': typeof ApiPublicHooksIngestLettersRoute
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/untitled-letters'
     | '/warning-letters'
     | '/api/chat'
+    | '/letters/$id'
     | '/api/letter-file/$id'
     | '/api/letter-pdf/$id'
     | '/api/public/hooks/ingest-letters'
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/untitled-letters'
     | '/warning-letters'
     | '/api/chat'
+    | '/letters/$id'
     | '/api/letter-file/$id'
     | '/api/letter-pdf/$id'
     | '/api/public/hooks/ingest-letters'
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/untitled-letters'
     | '/warning-letters'
     | '/api/chat'
+    | '/letters/$id'
     | '/api/letter-file/$id'
     | '/api/letter-pdf/$id'
     | '/api/public/hooks/ingest-letters'
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   UntitledLettersRoute: typeof UntitledLettersRoute
   WarningLettersRoute: typeof WarningLettersRoute
   ApiChatRoute: typeof ApiChatRoute
+  LettersIdRoute: typeof LettersIdRoute
   ApiLetterFileIdRoute: typeof ApiLetterFileIdRoute
   ApiLetterPdfIdRoute: typeof ApiLetterPdfIdRoute
   ApiPublicHooksIngestLettersRoute: typeof ApiPublicHooksIngestLettersRoute
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/letters/$id': {
+      id: '/letters/$id'
+      path: '/letters/$id'
+      fullPath: '/letters/$id'
+      preLoaderRoute: typeof LettersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/letter-file/$id': {
       id: '/api/letter-file/$id'
       path: '/api/letter-file/$id'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   UntitledLettersRoute: UntitledLettersRoute,
   WarningLettersRoute: WarningLettersRoute,
   ApiChatRoute: ApiChatRoute,
+  LettersIdRoute: LettersIdRoute,
   ApiLetterFileIdRoute: ApiLetterFileIdRoute,
   ApiLetterPdfIdRoute: ApiLetterPdfIdRoute,
   ApiPublicHooksIngestLettersRoute: ApiPublicHooksIngestLettersRoute,
