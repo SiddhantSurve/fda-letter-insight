@@ -10,33 +10,129 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as UntitledLettersRouteImport } from './routes/untitled-letters'
+import { Route as WarningLettersRouteImport } from './routes/warning-letters'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiLetterFileIdRouteImport } from './routes/api/letter-file.$id'
+import { Route as ApiLetterPdfIdRouteImport } from './routes/api/letter-pdf.$id'
+import { Route as ApiPublicHooksIngestLettersRouteImport } from './routes/api/public/hooks/ingest-letters'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UntitledLettersRoute = UntitledLettersRouteImport.update({
+  id: '/untitled-letters',
+  path: '/untitled-letters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WarningLettersRoute = WarningLettersRouteImport.update({
+  id: '/warning-letters',
+  path: '/warning-letters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLetterFileIdRoute = ApiLetterFileIdRouteImport.update({
+  id: '/api/letter-file/$id',
+  path: '/api/letter-file/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLetterPdfIdRoute = ApiLetterPdfIdRouteImport.update({
+  id: '/api/letter-pdf/$id',
+  path: '/api/letter-pdf/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksIngestLettersRoute =
+  ApiPublicHooksIngestLettersRouteImport.update({
+    id: '/api/public/hooks/ingest-letters',
+    path: '/api/public/hooks/ingest-letters',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/untitled-letters': typeof UntitledLettersRoute
+  '/warning-letters': typeof WarningLettersRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/letter-file/$id': typeof ApiLetterFileIdRoute
+  '/api/letter-pdf/$id': typeof ApiLetterPdfIdRoute
+  '/api/public/hooks/ingest-letters': typeof ApiPublicHooksIngestLettersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/untitled-letters': typeof UntitledLettersRoute
+  '/warning-letters': typeof WarningLettersRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/letter-file/$id': typeof ApiLetterFileIdRoute
+  '/api/letter-pdf/$id': typeof ApiLetterPdfIdRoute
+  '/api/public/hooks/ingest-letters': typeof ApiPublicHooksIngestLettersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/untitled-letters': typeof UntitledLettersRoute
+  '/warning-letters': typeof WarningLettersRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/letter-file/$id': typeof ApiLetterFileIdRoute
+  '/api/letter-pdf/$id': typeof ApiLetterPdfIdRoute
+  '/api/public/hooks/ingest-letters': typeof ApiPublicHooksIngestLettersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/untitled-letters'
+    | '/warning-letters'
+    | '/api/chat'
+    | '/api/letter-file/$id'
+    | '/api/letter-pdf/$id'
+    | '/api/public/hooks/ingest-letters'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/untitled-letters'
+    | '/warning-letters'
+    | '/api/chat'
+    | '/api/letter-file/$id'
+    | '/api/letter-pdf/$id'
+    | '/api/public/hooks/ingest-letters'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/untitled-letters'
+    | '/warning-letters'
+    | '/api/chat'
+    | '/api/letter-file/$id'
+    | '/api/letter-pdf/$id'
+    | '/api/public/hooks/ingest-letters'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  UntitledLettersRoute: typeof UntitledLettersRoute
+  WarningLettersRoute: typeof WarningLettersRoute
+  ApiChatRoute: typeof ApiChatRoute
+  ApiLetterFileIdRoute: typeof ApiLetterFileIdRoute
+  ApiLetterPdfIdRoute: typeof ApiLetterPdfIdRoute
+  ApiPublicHooksIngestLettersRoute: typeof ApiPublicHooksIngestLettersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +144,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/untitled-letters': {
+      id: '/untitled-letters'
+      path: '/untitled-letters'
+      fullPath: '/untitled-letters'
+      preLoaderRoute: typeof UntitledLettersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/warning-letters': {
+      id: '/warning-letters'
+      path: '/warning-letters'
+      fullPath: '/warning-letters'
+      preLoaderRoute: typeof WarningLettersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/letter-file/$id': {
+      id: '/api/letter-file/$id'
+      path: '/api/letter-file/$id'
+      fullPath: '/api/letter-file/$id'
+      preLoaderRoute: typeof ApiLetterFileIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/letter-pdf/$id': {
+      id: '/api/letter-pdf/$id'
+      path: '/api/letter-pdf/$id'
+      fullPath: '/api/letter-pdf/$id'
+      preLoaderRoute: typeof ApiLetterPdfIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/ingest-letters': {
+      id: '/api/public/hooks/ingest-letters'
+      path: '/api/public/hooks/ingest-letters'
+      fullPath: '/api/public/hooks/ingest-letters'
+      preLoaderRoute: typeof ApiPublicHooksIngestLettersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  UntitledLettersRoute: UntitledLettersRoute,
+  WarningLettersRoute: WarningLettersRoute,
+  ApiChatRoute: ApiChatRoute,
+  ApiLetterFileIdRoute: ApiLetterFileIdRoute,
+  ApiLetterPdfIdRoute: ApiLetterPdfIdRoute,
+  ApiPublicHooksIngestLettersRoute: ApiPublicHooksIngestLettersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
