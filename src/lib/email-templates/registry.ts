@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 
 import { template as newLetterAlert } from './new-letter-alert'
+import { template as newVideoAlert } from './new-video-alert'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -17,4 +18,5 @@ export interface TemplateEntry {
  */
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'new-letter-alert': newLetterAlert,
+  'new-video-alert': newVideoAlert,
 }

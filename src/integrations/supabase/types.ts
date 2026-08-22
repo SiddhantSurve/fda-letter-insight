@@ -282,6 +282,7 @@ export type Database = {
           created_at: string
           email: string | null
           notify_untitled: boolean
+          notify_videos: boolean
           notify_warning: boolean
           updated_at: string
           user_id: string
@@ -290,6 +291,7 @@ export type Database = {
           created_at?: string
           email?: string | null
           notify_untitled?: boolean
+          notify_videos?: boolean
           notify_warning?: boolean
           updated_at?: string
           user_id: string
@@ -298,6 +300,7 @@ export type Database = {
           created_at?: string
           email?: string | null
           notify_untitled?: boolean
+          notify_videos?: boolean
           notify_warning?: boolean
           updated_at?: string
           user_id?: string
@@ -343,6 +346,89 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      video_notifications_sent: {
+        Row: {
+          created_at: string
+          id: string
+          sent_at: string | null
+          status: string
+          user_id: string
+          video_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          sent_at?: string | null
+          status?: string
+          user_id: string
+          video_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          sent_at?: string | null
+          status?: string
+          user_id?: string
+          video_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_notifications_sent_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "videos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      videos: {
+        Row: {
+          channel_id: string
+          channel_title: string | null
+          created_at: string
+          description: string | null
+          id: string
+          published_at: string | null
+          summarized_at: string | null
+          summary: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          video_id: string
+          video_url: string
+        }
+        Insert: {
+          channel_id: string
+          channel_title?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          published_at?: string | null
+          summarized_at?: string | null
+          summary?: string | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          video_id: string
+          video_url: string
+        }
+        Update: {
+          channel_id?: string
+          channel_title?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          published_at?: string | null
+          summarized_at?: string | null
+          summary?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          video_id?: string
+          video_url?: string
         }
         Relationships: []
       }

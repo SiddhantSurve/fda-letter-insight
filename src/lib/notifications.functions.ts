@@ -7,6 +7,7 @@ export type NotificationPrefs = {
   email: string | null;
   notify_warning: boolean;
   notify_untitled: boolean;
+  notify_videos: boolean;
 };
 
 export const getNotificationPrefs = createServerFn({ method: "POST" })
@@ -15,7 +16,7 @@ export const getNotificationPrefs = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const { data } = await supabase
       .from("notification_preferences")
-      .select("email, notify_warning, notify_untitled")
+      .select("email, notify_warning, notify_untitled, notify_videos")
       .eq("user_id", userId)
       .maybeSingle();
     return {
@@ -31,6 +32,7 @@ export const saveNotificationPrefs = createServerFn({ method: "POST" })
         email: z.string().email().max(320),
         notify_warning: z.boolean(),
         notify_untitled: z.boolean(),
+        notify_videos: z.boolean(),
       })
       .parse(input),
   )
@@ -42,6 +44,7 @@ export const saveNotificationPrefs = createServerFn({ method: "POST" })
         email: data.email,
         notify_warning: data.notify_warning,
         notify_untitled: data.notify_untitled,
+        notify_videos: data.notify_videos,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "user_id" },

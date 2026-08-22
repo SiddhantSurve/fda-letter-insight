@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, FileWarning, ScrollText } from "lucide-react";
+import { ArrowRight, FileWarning, ScrollText, Youtube } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,6 +38,12 @@ const entries = [
     title: "Untitled Letters",
     body: "OPDP untitled letters to pharmaceutical companies, including promotional and reference materials.",
   },
+  {
+    to: "/commercial-archive" as const,
+    icon: Youtube,
+    title: "Commercial Archivist Videos",
+    body: "Every upload from the Commercial Archivist YouTube channel, with an AI summary and a link to each video.",
+  },
 ];
 
 function Index() {
@@ -50,7 +56,7 @@ function Index() {
         Choose an archive to search, summarize and ask questions about.
       </p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {entries.map((entry) => (
           <Link key={entry.to} to={entry.to} className="clinical-panel group p-6 transition hover:border-primary">
             <entry.icon className="h-7 w-7 text-primary" aria-hidden="true" />
