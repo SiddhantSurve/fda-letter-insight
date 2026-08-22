@@ -152,3 +152,19 @@ export const refreshCatalog = createServerFn({ method: "POST" })
     return { ok: true as const, throttled: false, notified, ...result };
 
   });
+
+/** Public single-letter fetch, used by the shareable /letters/$id permalink. */
+export const getLetter = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data }) => {
+    const { createPublicServerClient } = await import("@/lib/supabase-public.server");
+    const supabase = createPublicServerClient();
+    const { data: row } = await supabase
+      .from("letters")
+      .select(
+        "id, letter_kind, fda_id, posted_on, letter_issued_on, company_name, issuing_office, subject, letter_url, response_url, closeout_url, extra_links",
+      )
+      .eq("id", data.id)
+      .maybeSingle();
+    return { letter: (row ?? null) as unknown as LetterRow | null };
+  });
