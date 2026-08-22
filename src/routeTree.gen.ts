@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CommercialArchiveRouteImport } from './routes/commercial-archive'
 import { Route as UntitledLettersRouteImport } from './routes/untitled-letters'
 import { Route as WarningLettersRouteImport } from './routes/warning-letters'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -36,6 +37,11 @@ const AlertsRoute = AlertsRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialArchiveRoute = CommercialArchiveRouteImport.update({
+  id: '/commercial-archive',
+  path: '/commercial-archive',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UntitledLettersRoute = UntitledLettersRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/auth': typeof AuthRoute
+  '/commercial-archive': typeof CommercialArchiveRoute
   '/untitled-letters': typeof UntitledLettersRoute
   '/warning-letters': typeof WarningLettersRoute
   '/api/chat': typeof ApiChatRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/auth': typeof AuthRoute
+  '/commercial-archive': typeof CommercialArchiveRoute
   '/untitled-letters': typeof UntitledLettersRoute
   '/warning-letters': typeof WarningLettersRoute
   '/api/chat': typeof ApiChatRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/auth': typeof AuthRoute
+  '/commercial-archive': typeof CommercialArchiveRoute
   '/untitled-letters': typeof UntitledLettersRoute
   '/warning-letters': typeof WarningLettersRoute
   '/api/chat': typeof ApiChatRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/auth'
+    | '/commercial-archive'
     | '/untitled-letters'
     | '/warning-letters'
     | '/api/chat'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/auth'
+    | '/commercial-archive'
     | '/untitled-letters'
     | '/warning-letters'
     | '/api/chat'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/auth'
+    | '/commercial-archive'
     | '/untitled-letters'
     | '/warning-letters'
     | '/api/chat'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlertsRoute: typeof AlertsRoute
   AuthRoute: typeof AuthRoute
+  CommercialArchiveRoute: typeof CommercialArchiveRoute
   UntitledLettersRoute: typeof UntitledLettersRoute
   WarningLettersRoute: typeof WarningLettersRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -222,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-archive': {
+      id: '/commercial-archive'
+      path: '/commercial-archive'
+      fullPath: '/commercial-archive'
+      preLoaderRoute: typeof CommercialArchiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/untitled-letters': {
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
   AuthRoute: AuthRoute,
+  CommercialArchiveRoute: CommercialArchiveRoute,
   UntitledLettersRoute: UntitledLettersRoute,
   WarningLettersRoute: WarningLettersRoute,
   ApiChatRoute: ApiChatRoute,

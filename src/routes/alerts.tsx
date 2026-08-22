@@ -40,6 +40,7 @@ function AlertsPage() {
   const [email, setEmail] = useState("");
   const [warning, setWarning] = useState(true);
   const [untitled, setUntitled] = useState(true);
+  const [videos, setVideos] = useState(true);
 
   const prefsQuery = useQuery({
     queryKey: ["notification-prefs", user?.id],
@@ -53,6 +54,7 @@ function AlertsPage() {
       setEmail(prefs.email ?? user?.email ?? "");
       setWarning(prefs.notify_warning);
       setUntitled(prefs.notify_untitled);
+      setVideos(prefs.notify_videos);
     } else if (user?.email) {
       setEmail((current) => current || user.email!);
     }
@@ -61,7 +63,12 @@ function AlertsPage() {
   const save = useMutation({
     mutationFn: () =>
       saveNotificationPrefs({
-        data: { email, notify_warning: warning, notify_untitled: untitled },
+        data: {
+          email,
+          notify_warning: warning,
+          notify_untitled: untitled,
+          notify_videos: videos,
+        },
       }),
     onSuccess: () => {
       toast.success("Alert preferences saved.");
@@ -129,17 +136,26 @@ function AlertsPage() {
                   aria-label="Untitled letters"
                 />
               </div>
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium text-foreground">New Commercial Archivist videos</p>
+                  <p className="text-xs text-muted-foreground">
+                    Every new upload on the Commercial Archivist YouTube channel.
+                  </p>
+                </div>
+                <Switch checked={videos} onCheckedChange={setVideos} aria-label="New videos" />
+              </div>
             </div>
 
             <Button
-              disabled={save.isPending || !email || (!warning && !untitled)}
+              disabled={save.isPending || !email || (!warning && !untitled && !videos)}
               onClick={() => save.mutate()}
             >
               {save.isPending ? "Saving…" : "Save alert preferences"}
             </Button>
-            {!warning && !untitled && (
+            {!warning && !untitled && !videos && (
               <p className="text-xs text-muted-foreground">
-                Select at least one letter type, or turn both off and save to unsubscribe later.
+                Select at least one alert type, or turn them all off and save to unsubscribe.
               </p>
             )}
           </div>

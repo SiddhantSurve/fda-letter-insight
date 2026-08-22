@@ -73,7 +73,19 @@ export const Route = createFileRoute("/api/public/hooks/ingest-letters")({
           });
 
           const notified = await queueLetterNotifications(result.newLetterIds);
-          return Response.json({ ok: true, ...result, notified });
+
+          // The YouTube archive rides on the same hourly schedule.
+          const { runVideoIngest } = await import("@/lib/youtube/ingest.server");
+          const { queueVideoNotifications } = await import("@/lib/youtube/notify.server");
+          const videoResult = await runVideoIngest({ mode: "incremental" });
+          const videosNotified = await queueVideoNotifications(videoResult.newVideoIds);
+
+          return Response.json({
+            ok: true,
+            ...result,
+            notified,
+            videos: { ...videoResult, notified: videosNotified },
+          });
         } catch (error) {
           console.error("ingest-letters failed", error);
           return Response.json({ ok: false, error: "Ingestion failed" }, { status: 500 });
