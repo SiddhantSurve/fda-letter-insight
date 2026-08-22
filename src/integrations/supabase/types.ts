@@ -90,6 +90,24 @@ export type Database = {
           },
         ]
       }
+      hook_tokens: {
+        Row: {
+          created_at: string
+          name: string
+          token_hash: string
+        }
+        Insert: {
+          created_at?: string
+          name: string
+          token_hash: string
+        }
+        Update: {
+          created_at?: string
+          name?: string
+          token_hash?: string
+        }
+        Relationships: []
+      }
       ingest_runs: {
         Row: {
           error: string | null

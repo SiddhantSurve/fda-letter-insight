@@ -138,6 +138,10 @@ function SiteHeader() {
           </span>
           <span className="text-sm font-semibold text-foreground">Enforcement Letter Archive</span>
         </Link>
+        <div className="flex items-center gap-4">
+          <Link to="/alerts" className="text-sm font-medium text-foreground hover:text-primary">
+            Email alerts
+          </Link>
         {user ? (
           <div className="flex items-center gap-3">
             <span className="hidden text-xs text-muted-foreground sm:inline">{user.email}</span>
@@ -153,6 +157,7 @@ function SiteHeader() {
             Sign in
           </Link>
         )}
+        </div>
       </div>
     </header>
   );

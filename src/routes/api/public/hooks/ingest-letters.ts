@@ -17,6 +17,25 @@ async function timingSafeMatch(provided: string, expected: string): Promise<bool
   return timingSafeEqual(digest(provided), digest(expected));
 }
 
+/** The scheduled database job authenticates with a token stored in the vault. */
+async function matchesStoredHookToken(provided: string): Promise<boolean> {
+  const { createHash, timingSafeEqual } = await import("node:crypto");
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin
+    .from("hook_tokens")
+    .select("token_hash")
+    .eq("name", "ingest_letters")
+    .maybeSingle();
+  if (!data?.token_hash) return false;
+  const providedHash = Buffer.from(
+    createHash("sha256").update(provided, "utf8").digest("hex"),
+    "utf8",
+  );
+  const storedHash = Buffer.from(data.token_hash, "utf8");
+  if (providedHash.length !== storedHash.length) return false;
+  return timingSafeEqual(providedHash, storedHash);
+}
+
 export const Route = createFileRoute("/api/public/hooks/ingest-letters")({
   server: {
     handlers: {
@@ -25,7 +44,8 @@ export const Route = createFileRoute("/api/public/hooks/ingest-letters")({
         const header = request.headers.get("x-cron-secret");
 
         if (header) {
-          if (!secret || !(await timingSafeMatch(header, secret))) {
+          const envMatch = secret ? await timingSafeMatch(header, secret) : false;
+          if (!envMatch && !(await matchesStoredHookToken(header))) {
             return new Response("Unauthorized", { status: 401 });
           }
         } else {
