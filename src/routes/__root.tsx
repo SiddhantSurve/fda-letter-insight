@@ -9,8 +9,14 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { AppBanner } from "@/components/AppBanner";
+import { StaleBuildBoundary, useStaleBuildRecovery } from "@/components/StaleBuildBoundary";
+import { Toaster } from "@/components/ui/sonner";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
 
 function NotFoundComponent() {
   return (
@@ -77,19 +83,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "FDA Enforcement Letter Archive" },
+      {
+        name: "description",
+        content:
+          "Search, summarize and question FDA Warning Letters and OPDP Untitled Letters.",
+      },
+      { property: "og:site_name", content: "FDA Enforcement Letter Archive" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
@@ -114,13 +127,51 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SiteHeader() {
+  const { user } = useAuth();
+  return (
+    <header className="border-b border-border bg-card">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="gradient-clinical inline-flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold text-primary-foreground">
+            FDA
+          </span>
+          <span className="text-sm font-semibold text-foreground">Enforcement Letter Archive</span>
+        </Link>
+        {user ? (
+          <div className="flex items-center gap-3">
+            <span className="hidden text-xs text-muted-foreground sm:inline">{user.email}</span>
+            <button
+              className="text-sm font-medium text-primary hover:underline"
+              onClick={() => void supabase.auth.signOut()}
+            >
+              Sign out
+            </button>
+          </div>
+        ) : (
+          <Link to="/auth" className="text-sm font-medium text-primary hover:underline">
+            Sign in
+          </Link>
+        )}
+      </div>
+    </header>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useStaleBuildRecovery();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AppBanner />
+      <SiteHeader />
+      <StaleBuildBoundary>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </StaleBuildBoundary>
+      <Toaster position="top-right" />
     </QueryClientProvider>
   );
 }
+
