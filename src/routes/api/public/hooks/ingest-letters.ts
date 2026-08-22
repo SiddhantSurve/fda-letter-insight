@@ -44,7 +44,8 @@ export const Route = createFileRoute("/api/public/hooks/ingest-letters")({
         const header = request.headers.get("x-cron-secret");
 
         if (header) {
-          if (!secret || !(await timingSafeMatch(header, secret))) {
+          const envMatch = secret ? await timingSafeMatch(header, secret) : false;
+          if (!envMatch && !(await matchesStoredHookToken(header))) {
             return new Response("Unauthorized", { status: 401 });
           }
         } else {
