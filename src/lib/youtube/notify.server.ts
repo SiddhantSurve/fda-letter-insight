@@ -5,11 +5,21 @@ export async function queueVideoNotifications(videoRowIds: string[]): Promise<nu
   if (videoRowIds.length === 0) return 0;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-  const { data: videos } = await supabaseAdmin
+  const { data: allVideos } = await supabaseAdmin
     .from("videos")
     .select("id, title, description, video_url, published_at, channel_title")
     .in("id", videoRowIds.slice(0, 200));
-  if (!videos || videos.length === 0) return 0;
+  if (!allVideos || allVideos.length === 0) return 0;
+
+  // Only genuinely fresh uploads are ever emailed. Backfilled/older rows are
+  // recorded silently so a catalog import can never blast subscribers.
+  const cutoff = Date.now() - FRESH_WINDOW_MS;
+  const videos = allVideos.filter((v) => {
+    if (!v.published_at) return false;
+    const ts = new Date(v.published_at).getTime();
+    return Number.isFinite(ts) && ts >= cutoff;
+  });
+  if (videos.length === 0) return 0;
 
   const { data: prefs } = await supabaseAdmin
     .from("notification_preferences")
