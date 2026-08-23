@@ -64,8 +64,10 @@ export const refreshVideos = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { runVideoIngest } = await import("@/lib/youtube/ingest.server");
     const { queueVideoNotifications } = await import("@/lib/youtube/notify.server");
-    const result = await runVideoIngest({ mode: data.mode ?? "full" });
-    const notified = await queueVideoNotifications(result.newVideoIds);
+    const mode = data.mode ?? "full";
+    const result = await runVideoIngest({ mode });
+    // A full backfill imports the channel's history; those are not new uploads.
+    const notified = mode === "full" ? 0 : await queueVideoNotifications(result.newVideoIds);
     return { ok: true as const, notified, scanned: result.scanned, inserted: result.inserted };
   });
 
