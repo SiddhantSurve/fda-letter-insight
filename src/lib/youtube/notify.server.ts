@@ -1,5 +1,7 @@
 /** Emails every opted-in subscriber once per new video. */
 const SITE_URL = "https://fdacontent.org";
+/** Uploads older than this are archive backfill, not news — never emailed. */
+const FRESH_WINDOW_MS = 3 * 24 * 60 * 60 * 1000;
 
 export async function queueVideoNotifications(videoRowIds: string[]): Promise<number> {
   if (videoRowIds.length === 0) return 0;
