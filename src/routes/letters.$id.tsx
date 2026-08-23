@@ -42,10 +42,10 @@ function LetterDetail() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-6">
       <Link
-        to="/"
+        to={letter?.letter_kind === "untitled" ? "/untitled-letters" : "/warning-letters"}
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
       >
-        <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to archives
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to archive
       </Link>
 
       <h1 className="mt-4 text-xl font-semibold text-foreground">
