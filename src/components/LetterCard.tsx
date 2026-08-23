@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import {
   Building2,
   ExternalLink,
@@ -104,12 +103,12 @@ export function LetterCard({ letter, onAsk }: { letter: LetterRow; onAsk: (lette
           <MessageCircleQuestion className="mr-1 h-4 w-4" />
           Ask me
         </Button>
-        <Link to="/letters/$id" params={{ id: letter.id }}>
+        <a href={letter.letter_url} target="_blank" rel="noreferrer">
           <Button size="sm" variant="ghost">
             <LinkIcon className="mr-1 h-4 w-4" />
             Permalink
           </Button>
-        </Link>
+        </a>
       </div>
 
       {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
