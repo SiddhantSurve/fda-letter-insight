@@ -11,7 +11,7 @@ export async function queueLetterNotifications(letterIds: string[]): Promise<num
 
   const { data: letters } = await supabaseAdmin
     .from("letters")
-    .select("id, letter_kind, company_name, issuing_office, subject, posted_on")
+    .select("id, letter_kind, company_name, issuing_office, subject, posted_on, letter_url")
     .in("id", letterIds.slice(0, 500));
   if (!letters || letters.length === 0) return 0;
 
