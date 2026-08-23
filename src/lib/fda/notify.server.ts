@@ -58,7 +58,7 @@ export async function queueLetterNotifications(letterIds: string[]): Promise<num
           issuingOffice: letter.issuing_office,
           postedOn: letter.posted_on,
           subject: letter.subject,
-          letterUrl: `${SITE_URL}/letters/${letter.id}`,
+          letterUrl: letter.letter_url || `${SITE_URL}/letters/${letter.id}`,
         },
       });
       await supabaseAdmin
