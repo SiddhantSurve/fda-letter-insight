@@ -1,7 +1,7 @@
 """
 FDA Letters -> CSV export for Domino Data Lab.
 
-Run as a Domino Scheduled Job (e.g. every 30 minutes):
+Run as a Domino Scheduled Job (e.g. every 10 minutes):
     python domino/export_letters.py
 
 Output: /mnt/data/fda-letters/letters.csv  (falls back to ./letters.csv)
@@ -16,7 +16,7 @@ Environment variables (set in Domino: Project > Settings > Environment Variables
 Optional:
     LETTERS_CSV_PATH          override output path
     FETCH_MISSING_TEXT        "0" to skip live fetching (default "1")
-    MAX_FETCH_PER_RUN         cap on live fetches per run (default 150)
+    MAX_FETCH_PER_RUN         cap on live fetches per run (default 400)
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ SUPABASE_KEY = os.environ.get(
 )
 OUT_PATH = os.environ.get("LETTERS_CSV_PATH", "/mnt/data/fda-letters/letters.csv")
 FETCH_MISSING = os.environ.get("FETCH_MISSING_TEXT", "1") != "0"
-MAX_FETCH = int(os.environ.get("MAX_FETCH_PER_RUN", "150"))
+MAX_FETCH = int(os.environ.get("MAX_FETCH_PER_RUN", "400"))
 
 UA = "Mozilla/5.0 (compatible; FDA-Letters-Export/1.0)"
 COLUMNS = [
