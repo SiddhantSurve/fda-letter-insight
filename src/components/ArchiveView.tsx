@@ -91,9 +91,6 @@ export function ArchiveView({
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{description}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setGlobalChat(true)}>
-            <MessagesSquare className="mr-1 h-4 w-4" /> Ask the archive
-          </Button>
           <Button onClick={() => refresh.mutate()} disabled={refresh.isPending}>
             {refresh.isPending ? (
               <Loader2 className="mr-1 h-4 w-4 animate-spin" />
