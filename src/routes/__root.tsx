@@ -83,13 +83,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FDA Enforcement Letter Archive" },
+      { title: "FDA Content Monitoring" },
       {
         name: "description",
         content:
           "Search, summarize and question FDA Warning Letters and OPDP Untitled Letters.",
       },
-      { property: "og:site_name", content: "FDA Enforcement Letter Archive" },
+      { property: "og:site_name", content: "FDA Content Monitoring" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -136,7 +136,7 @@ function SiteHeader() {
           <span className="gradient-clinical inline-flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold text-primary-foreground">
             FDA
           </span>
-          <span className="text-sm font-semibold text-foreground">Enforcement Letter Archive</span>
+          <span className="text-sm font-semibold text-foreground">FDA Content Monitoring</span>
         </Link>
         <div className="flex items-center gap-4">
           <Link to="/alerts" className="text-sm font-medium text-foreground hover:text-primary">
