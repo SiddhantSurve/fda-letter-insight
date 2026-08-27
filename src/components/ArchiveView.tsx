@@ -206,13 +206,6 @@ export function ArchiveView({
       )}
 
       <ChatPanel
-        open={globalChat}
-        onOpenChange={setGlobalChat}
-        title={`Ask across the ${title}`}
-        subtitle="Answers are retrieved from the stored text of the whole archive."
-        kind={kind}
-      />
-      <ChatPanel
         open={activeLetter !== null}
         onOpenChange={(open) => !open && setActiveLetter(null)}
         title={activeLetter?.company_name ?? ""}
