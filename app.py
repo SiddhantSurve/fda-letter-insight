@@ -5,7 +5,7 @@ Reads the same backend (letters + videos) as the web app, with search,
 filters, sort, full letter text, AI summaries and a per-letter chat.
 
 Run:
-    streamlit run streamlit/app.py
+    streamlit run app.py
 
 Environment variables:
     SUPABASE_URL              https://<project>.supabase.co
