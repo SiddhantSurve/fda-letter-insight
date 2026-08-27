@@ -54,7 +54,7 @@ function Index() {
         FDA Content Monitoring
       </h1>
       <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
-        Choose an archive to search, summarize and ask questions about.
+        Choose Content Types
       </p>
 
       <div className="mt-10 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
