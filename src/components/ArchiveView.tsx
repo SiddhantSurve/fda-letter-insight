@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Loader2, MessagesSquare, RefreshCw, Search } from "lucide-react";
+import { ArrowLeft, Loader2, RefreshCw, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -37,7 +37,6 @@ export function ArchiveView({
   const [office, setOffice] = useState("all");
   const [sort, setSort] = useState<Sort>("newest");
   const [page, setPage] = useState(0);
-  const [globalChat, setGlobalChat] = useState(false);
   const [activeLetter, setActiveLetter] = useState<LetterRow | null>(null);
 
   const lettersQuery = useQuery({
@@ -91,9 +90,6 @@ export function ArchiveView({
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{description}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setGlobalChat(true)}>
-            <MessagesSquare className="mr-1 h-4 w-4" /> Ask the archive
-          </Button>
           <Button onClick={() => refresh.mutate()} disabled={refresh.isPending}>
             {refresh.isPending ? (
               <Loader2 className="mr-1 h-4 w-4 animate-spin" />
@@ -209,13 +205,6 @@ export function ArchiveView({
         </div>
       )}
 
-      <ChatPanel
-        open={globalChat}
-        onOpenChange={setGlobalChat}
-        title={`Ask across the ${title}`}
-        subtitle="Answers are retrieved from the stored text of the whole archive."
-        kind={kind}
-      />
       <ChatPanel
         open={activeLetter !== null}
         onOpenChange={(open) => !open && setActiveLetter(null)}
