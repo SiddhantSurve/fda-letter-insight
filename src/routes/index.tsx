@@ -70,7 +70,7 @@ function Index() {
             <p className="mt-2 flex-1 text-sm text-muted-foreground">{entry.body}</p>
             <Button asChild className="mt-6 w-full">
               <Link to={entry.to}>
-                Open archive
+                View
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
