@@ -37,7 +37,6 @@ export function ArchiveView({
   const [office, setOffice] = useState("all");
   const [sort, setSort] = useState<Sort>("newest");
   const [page, setPage] = useState(0);
-  const [globalChat, setGlobalChat] = useState(false);
   const [activeLetter, setActiveLetter] = useState<LetterRow | null>(null);
 
   const lettersQuery = useQuery({
