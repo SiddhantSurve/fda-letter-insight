@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FDA Enforcement Letter Archive — Warning & Untitled Letters" },
+      { title: "FDA Content Monitoring — Warning & Untitled Letters" },
       {
         name: "description",
         content:
           "Search, summarize and question FDA Warning Letters and OPDP Untitled Letters with full letter text, response and close-out documents.",
       },
-      { property: "og:title", content: "FDA Enforcement Letter Archive" },
+      { property: "og:title", content: "FDA Content Monitoring" },
       {
         property: "og:description",
         content:
@@ -51,7 +51,7 @@ function Index() {
   return (
     <main className="mx-auto flex min-h-[80vh] max-w-5xl flex-col justify-center px-4 py-14 text-center">
       <h1 className="mx-auto text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-        FDA Enforcement Letter Archive
+        FDA Content Monitoring
       </h1>
       <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
         Choose an archive to search, summarize and ask questions about.
